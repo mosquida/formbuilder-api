@@ -1,0 +1,17 @@
+{
+  "name": "formbuilder-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "docxtemplater": "^3.32.4",
+    "express": "^4.18.2",
+    "libreoffice-convert": "^1.4.1",
+    "pizzip": "^3.1.3"
+  }
+}
