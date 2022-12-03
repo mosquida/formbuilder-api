@@ -1,16 +1,19 @@
 const express = require("express");
 const app = express();
-
-const PizZip = require("pizzip");
-const Docxtemplater = require("docxtemplater");
-
 const path = require("path");
 const fs = require("fs");
+const PizZip = require("pizzip");
+const Docxtemplater = require("docxtemplater");
 
 const libre = require("libreoffice-convert");
 libre.convertAsync = require("util").promisify(libre.convert);
 
-app.use(express.json()); // JSON parser=
+const { google } = require("googleapis");
+
+require("dotenv").config();
+
+// JSON parser
+app.use(express.json());
 
 // Handling Middleware Error, Beutifies Return Message
 app.use((err, req, res, next) => {
@@ -53,7 +56,7 @@ app.get("/", (req, res) => {
   // file or res.send it with express for example.
   fs.writeFileSync(path.resolve(__dirname, "output.docx"), buf);
 
-  //DOCX TO PDF
+  // DOCX TO PDF
   const ext = ".pdf";
   const inputPath = path.join(__dirname, "/output.docx");
   const outputPath = path.join(__dirname, `/test.pdf`);
@@ -64,12 +67,57 @@ app.get("/", (req, res) => {
     libre.convert(b, ext, undefined, function (err, buf) {
       // Here in done you have pdf file which you can save or transfer in another stream
       fs.writeFileSync(outputPath, buf);
-      return res.send("ok");
     });
   });
+
+  // PDF RTO DRIVE
+  async function uploadFile() {
+    try {
+      const auth = new google.auth.GoogleAuth({
+        keyFile: "./googlekey.json",
+        scopes: ["https://www.googleapis.com/auth/drive"],
+      });
+
+      const driveService = google.drive({
+        version: "v3",
+        auth,
+      });
+      console.log(process.env.GOOGLE_API_FOLDER_ID);
+
+      const fileMetaData = {
+        name: "test.pdf",
+        parents: [process.env.GOOGLE_API_FOLDER_ID],
+      };
+
+      const media = {
+        mimeType: "application/pdf",
+        body: fs.createReadStream("test.pdf"),
+      };
+
+      const response = await driveService.files.create({
+        resource: fileMetaData,
+        media: media,
+        field: "id,name",
+      });
+      // return response.data.id;
+      return response.data;
+    } catch (err) {
+      console.log("Upload file error", err);
+    }
+  }
+
+  uploadFile().then((data) => {
+    console.log(data);
+    return res.download(path.join(__dirname, "test.pdf"));
+    // return res.send(data);
+    //https://drive.google.com/uc?export=view&id=1_uWvPzbaljbOieHpXooXUMDuFr92aOph
+  });
+
+  // DELETE THE LOCAL FILE
 });
 
 const port = process.env.PORT || 3000;
+
 app.listen(port, () => {
   console.log(`API running on port ${port}`);
 });
