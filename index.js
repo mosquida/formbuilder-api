@@ -53,6 +53,11 @@ app.post("/", (req, res) => {
 
     if (pdf)
       fs.writeFile(contractNamePdf, pdf.content, function () {
+        appendValues()
+          .then((data) => {})
+          .catch((err) => {
+            return res.json({ message: "err" }).status(500);
+          });
         uploadFile()
           .then((data) => {
             // res.download(contractNamePdf)
@@ -64,6 +69,52 @@ app.post("/", (req, res) => {
           });
       });
   })();
+
+  // APPEND TO EXCEL
+  async function appendValues() {
+    const auth = new google.auth.GoogleAuth({
+      keyFile: "./googlekey.json",
+      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+    });
+
+    const sheetService = google.sheets({
+      version: "v4",
+      auth,
+    });
+
+    try {
+      let values = [
+        [
+          req.body.firstName,
+          req.body.middleName,
+          req.body.lastName,
+          req.body.franchise,
+          req.body.amount,
+          req.body.authFirstName,
+          req.body.authMiddleName,
+          req.body.authLastName,
+          `${clientName}-${date}.pdf`,
+        ],
+      ];
+
+      const resource = {
+        values,
+      };
+
+      const result = await sheetService.spreadsheets.values.append({
+        spreadsheetId: "1BgnmyLquX9o44smGxEZSj0u_L33rjEoIJtcyvEOME2A",
+        range: "Sheet1",
+        valueInputOption: "RAW",
+        resource: resource,
+      });
+
+      console.log(`${result.data.updates.updatedCells} cells appended.`);
+      return result;
+    } catch (err) {
+      console.log("Data appending to sheet error", err);
+      throw err;
+    }
+  }
 
   // PDF TO DRIVE
   async function uploadFile() {
@@ -97,6 +148,7 @@ app.post("/", (req, res) => {
       // return response.data;
     } catch (err) {
       console.log("Upload file error", err);
+      throw err;
     }
   }
 
