@@ -20,20 +20,36 @@ app.use((err, req, res, next) => {
 });
 
 app.post("/", (req, res) => {
+  if (
+    req.body.firstName &&
+    req.body.middleName &&
+    req.body.lastName &&
+    req.body.authFirstName &&
+    req.body.authMiddleName &&
+    req.body.authLastName &&
+    req.body.amount &&
+    req.body.franchise &&
+    req.body.signature
+  ) {
+    return res.json({ message: "err" }).status(500);
+  }
+
   const clientName = `${req.body.firstName} ${req.body.middleName} ${req.body.lastName}`;
   const authName = `${req.body.authFirstName} ${req.body.authMiddleName} ${req.body.authLastName}`;
+  const dateToday = Date.now();
 
   const data = {
-    client_name: clientName,
+    client_name: clientName.toUpperCase(),
     auth_name: authName,
     amount: req.body.amount,
     franchise: req.body.franchise,
     signature: req.body.signature,
+    date: dateToday,
   };
 
   // res.send(data);
 
-  // POPULATE MD
+  // POPULATE MD from TEMPLATE
   const template = fs.readFileSync("./contracts/template.md").toString();
   const date = Date.now();
   const contractNameMd = `./contracts/${clientName}-${date}.md`;

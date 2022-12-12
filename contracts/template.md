@@ -8,6 +8,12 @@ pdf_options:
 
 <div style="font-family: 'Times New Roman', serif; font-size: 15px;">
 
+<div style="display: flex; justify-content:center; height: 8em;">
+
+<!-- ![wew](eralista.png) -->
+<img src="eralista.png">
+</div>
+
 <p style="text-align: center;"> <b><u>ONLINE FRANCHISEE AGREEMENT FORM</u></b> </p>
 
 This is to confirm that <b><u>{{client_name}}</u></b> will avail of the <b><u>{{franchise}}</u></b> Franchise Package amounting to <b><u>{{amount}}</u></b> pesos only.
@@ -55,14 +61,18 @@ _(Once activated, your payment for your Online Franchise Account is NON-REFUNDAB
 By signing this agreement, I hereby acknowledge and agree that the process of availing the Online Franchise was clearly explained to me by my Sponsor/Franchise Consultant.
 
 I authorize ERALISTA to collect and process the data indicated herein for the purpose of availing the franchise package. I understand that my personal information is protected by RA 10173 (Data Privacy Act of 2012).
+<br></br>
 
-![signature]({{signature}})
-
-{{client_name}}  
-\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-
-Signature above printed name
-
-Date
-
+<div style="display: flex; justify-content: flex-start; gap:9em">
+  <div style="">
+   <div style="width: 5em;">
+    <img src={{signature}} style="height: 4em; ">
+  </div>
+    <b><u>{{client_name}}</u></b>
+    <p>Signature above printed name</p>
+  </div>
+  <div style="padding-top:8em;">
+    <b><u>{{date}}</u></b>
+    <p>Date</p>
+  </div>
 </div>
