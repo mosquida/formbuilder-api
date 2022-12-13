@@ -20,19 +20,19 @@ app.use((err, req, res, next) => {
 });
 
 app.post("/", (req, res) => {
-  if (
-    req.body.firstName &&
-    req.body.middleName &&
-    req.body.lastName &&
-    req.body.authFirstName &&
-    req.body.authMiddleName &&
-    req.body.authLastName &&
-    req.body.amount &&
-    req.body.franchise &&
-    req.body.signature
-  ) {
-    return res.json({ message: "err" }).status(500);
-  }
+  // if (
+  //   req.body.firstName &&
+  //   req.body.middleName &&
+  //   req.body.lastName &&
+  //   req.body.authFirstName &&
+  //   req.body.authMiddleName &&
+  //   req.body.authLastName &&
+  //   req.body.amount &&
+  //   req.body.franchise &&
+  //   req.body.signature
+  // ) {
+  //   return res.json({ message: "errsds" }).status(500);
+  // }
 
   const clientName = `${req.body.firstName} ${req.body.middleName} ${req.body.lastName}`;
   const authName = `${req.body.authFirstName} ${req.body.authMiddleName} ${req.body.authLastName}`;
@@ -70,7 +70,9 @@ app.post("/", (req, res) => {
     if (pdf)
       fs.writeFile(contractNamePdf, pdf.content, function () {
         appendValues()
-          .then((data) => {})
+          .then((data) => {
+            return;
+          })
           .catch((err) => {
             return res.json({ message: "err" }).status(500);
           });

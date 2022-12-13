@@ -65,13 +65,13 @@ I authorize ERALISTA to collect and process the data indicated herein for the pu
 
 <div style="display: flex; justify-content: flex-start; gap:9em">
   <div style="">
-   <div style="width: 5em;">
+   <div style="width: 6em; margin-bottom:-2em">
     <img src={{signature}} style="height: 4em; ">
   </div>
     <b><u>{{client_name}}</u></b>
     <p>Signature above printed name</p>
   </div>
-  <div style="padding-top:8em;">
+  <div style="padding-top:4.5em;">
     <b><u>{{date}}</u></b>
     <p>Date</p>
   </div>
