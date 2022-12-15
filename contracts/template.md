@@ -68,7 +68,7 @@ I authorize ERALISTA to collect and process the data indicated herein for the pu
    <div style="width: 6em; margin-bottom:-2em">
     <img src={{signature}} style="height: 4em; ">
   </div>
-    <b><u>{{client_name}}</u></b>
+    <b><u>{{client_name_up}}</u></b>
     <p>Signature above printed name</p>
   </div>
   <div style="padding-top:4.5em;">

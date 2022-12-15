@@ -39,7 +39,8 @@ app.post("/", (req, res) => {
   const dateToday = Date.now();
 
   const data = {
-    client_name: clientName.toUpperCase(),
+    client_name: clientName,
+    client_name_up: clientName.toUpperCase(),
     auth_name: authName,
     amount: req.body.amount,
     franchise: req.body.franchise,
