@@ -51,7 +51,33 @@ app.post("/", (req, res) => {
 
   // POPULATE MD from TEMPLATE
   const template = fs.readFileSync("./contracts/template.md").toString();
-  const date = Date.now();
+
+  let date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+
+  let fullDate = `${getMonth(month)} ${day}, ${year}`;
+
+  function getMonth(month) {
+    let monthFull = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    return monthFull[month - 1];
+  }
+
+  date = fullDate;
   const contractNameMd = `./contracts/${clientName}-${date}.md`;
   const contractNamePdf = `./contracts/${clientName}-${date}.pdf`;
 
