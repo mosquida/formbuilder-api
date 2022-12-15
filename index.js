@@ -33,25 +33,21 @@ app.post("/", (req, res) => {
   // ) {
   //   return res.json({ message: "errsds" }).status(500);
   // }
+  function capitalizeFirstLetter(str) {
+    arr = str.split(" ");
+    str = "";
+    for (let a of arr) {
+      b = a.charAt(0).toUpperCase() + a.slice(1) + " ";
+      str += b;
+    }
+    return str;
+  }
 
-  const clientName = `${req.body.firstName} ${req.body.middleName} ${req.body.lastName}`;
-  const authName = `${req.body.authFirstName} ${req.body.authMiddleName} ${req.body.authLastName}`;
-  const dateToday = Date.now();
+  let clientName = `${req.body.firstName} ${req.body.middleName} ${req.body.lastName}`;
+  let authName = `${req.body.authFirstName} ${req.body.authMiddleName} ${req.body.authLastName}`;
 
-  const data = {
-    client_name: clientName,
-    client_name_up: clientName.toUpperCase(),
-    auth_name: authName,
-    amount: req.body.amount,
-    franchise: req.body.franchise,
-    signature: req.body.signature,
-    date: dateToday,
-  };
-
-  // res.send(data);
-
-  // POPULATE MD from TEMPLATE
-  const template = fs.readFileSync("./contracts/template.md").toString();
+  clientName = capitalizeFirstLetter(clientName);
+  authName = capitalizeFirstLetter(authName);
 
   let date = new Date();
   let day = date.getDate();
@@ -78,9 +74,24 @@ app.post("/", (req, res) => {
     return monthFull[month - 1];
   }
 
-  date = fullDate;
-  const contractNameMd = `./contracts/${clientName}-${date}.md`;
-  const contractNamePdf = `./contracts/${clientName}-${date}.pdf`;
+  const dateToday = fullDate;
+
+  const data = {
+    client_name: clientName,
+    client_name_up: clientName.toUpperCase(),
+    auth_name: authName,
+    amount: req.body.amount,
+    franchise: req.body.franchise,
+    signature: req.body.signature,
+    date: dateToday,
+  };
+
+  // res.send(data);
+
+  // POPULATE MD from TEMPLATE
+  const template = fs.readFileSync("./contracts/template.md").toString();
+  const contractNameMd = `./contracts/${clientName} - ${dateToday}.md`;
+  const contractNamePdf = `./contracts/${clientName} - ${dateToday}.pdf`;
 
   const buf = render(template, data);
   fs.writeFileSync(contractNameMd, buf);
@@ -138,7 +149,7 @@ app.post("/", (req, res) => {
           req.body.authFirstName,
           req.body.authMiddleName,
           req.body.authLastName,
-          `${clientName}-${date}.pdf`,
+          `${clientName} - ${dateToday}.pdf`,
         ],
       ];
 
@@ -175,7 +186,7 @@ app.post("/", (req, res) => {
       });
 
       const fileMetaData = {
-        name: `${clientName}-${date}.pdf`,
+        name: `${clientName} - ${dateToday}.pdf`,
         parents: [process.env.GOOGLE_API_FOLDER_ID],
       };
 
