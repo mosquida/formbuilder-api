@@ -160,7 +160,7 @@ app.post("/", (req, res) => {
       };
 
       const result = await sheetService.spreadsheets.values.append({
-        spreadsheetId: "1BgnmyLquX9o44smGxEZSj0u_L33rjEoIJtcyvEOME2A",
+        spreadsheetId: process.env.GOOGLE_API_SHEET_ID,
         range: "Sheet1",
         valueInputOption: "RAW",
         resource: resource,
