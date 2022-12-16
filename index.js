@@ -94,10 +94,12 @@ app.post("/", (req, res) => {
   const contractNamePdf = `./contracts/${clientName} - ${dateToday}.pdf`;
 
   const buf = render(template, data);
-  fs.writeFileSync(contractNameMd, buf);
+  fs.writeFile(contractNameMd, buf, () => {
+    start();
+  });
 
   // MD RO PDF
-  (async () => {
+  const start = async () => {
     const pdf = await mdToPdf({
       path: contractNameMd,
     }).catch((err) => {
@@ -124,7 +126,7 @@ app.post("/", (req, res) => {
             return res.json({ message: "err" }).status(500);
           });
       });
-  })();
+  };
 
   // APPEND TO EXCEL
   async function appendValues() {
