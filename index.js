@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 var cors = require("cors");
 const fs = require("fs");
+const path = require("path");
 let { render } = require("mustache");
 const { mdToPdf } = require("md-to-pdf");
 const { google } = require("googleapis");
@@ -12,6 +13,8 @@ app.use(cors());
 
 // JSON parser
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, "/build")));
 
 // Handling Middleware Error, Beutifies Return Message
 app.use((err, req, res, next) => {
@@ -217,7 +220,11 @@ app.post("/", (req, res) => {
   }
 });
 
-const port = process.env.PORT || 5000;
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build/index.html"));
+});
+
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`API running on port ${port}`);
