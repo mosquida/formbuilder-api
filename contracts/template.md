@@ -11,7 +11,11 @@ pdf_options:
 <div style="display: flex; justify-content:center; height: 8em;">
 
 <!-- ![wew](eralista.png) -->
-<img src="eralista.png">
+<!-- <img src="eralista.png"> -->
+<div>
+  <h1 className=" font-bold text-2xl">Company ABC</h1>
+  <p className=" italic">Sample Contract Content</p>
+</div>
 </div>
 
 <p style="text-align: center;"> <b><u>ONLINE FRANCHISEE AGREEMENT FORM</u></b> </p>
@@ -22,7 +26,7 @@ The Franchise is lifetime and has no expiration.
 
 It includes referral commissions from the line of business/es that I will a
 
-It also includes Other Ways to Earn from JC.
+<!-- It also includes Other Ways to Earn from JC. -->
 
 <br>
 <br>
@@ -30,12 +34,12 @@ It also includes Other Ways to Earn from JC.
 <div>
   <b >SUPPORT SYSTEM</b>
   <p>
-  The Franchise of <b><u>{{franchise}}</u></b>  will be handled by ERALISTA WORLDWIDE GROUP, the LARGEST ONLINE FRANCHISE SUPPORT GROUP.
+  The Franchise of <b><u>{{franchise}}</u></b>  will be handled by Company ABC.
   <p>
 </div>
 
 <div>
-  <b >ERALISTA will provide the following steps:</b>
+  <b >Company ABC will provide the following steps:</b>
 </div>
 STEP 1: APPLICATION/REQUIREMENTS
   
@@ -60,7 +64,7 @@ _(Once activated, your payment for your Online Franchise Account is NON-REFUNDAB
 
 By signing this agreement, I hereby acknowledge and agree that the process of availing the Online Franchise was clearly explained to me by my Sponsor/Franchise Consultant.
 
-I authorize ERALISTA to collect and process the data indicated herein for the purpose of availing the franchise package. I understand that my personal information is protected by RA 10173 (Data Privacy Act of 2012).
+I authorize Company ABC to collect and process the data indicated herein for the purpose of availing the franchise package. I understand that my personal information is protected by RA 10173 (Data Privacy Act of 2012).
 <br></br>
 
 <div style="display: flex; justify-content: flex-start; gap:9em">
